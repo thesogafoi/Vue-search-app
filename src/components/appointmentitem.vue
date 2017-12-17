@@ -3,7 +3,7 @@
 <li class="pet-item media">
 
 <div class="media-left">
-    <button class="pet-delete btn btn-xs btn-danger"><span class="glyphicon  glyphicon-remove"></span></button>
+    <button class="pet-delete btn btn-xs btn-danger" @click="removeRequest"><span class="glyphicon  glyphicon-remove"></span></button>
 </div><!--Media Left-->
 <div class="pet-info media-body">
 <div class="pet-head">
@@ -26,11 +26,16 @@ import moment from 'moment'
     export default{
         name: 'appointmentItem', 
         props: ['item'], 
+       
         computed:{
             formattedDate:function(){
                 return moment(new Date(this.item.aptDate)).format('Y-MM-DD, h:mm a');
             }
-        }
+        }, methods: {
+          removeRequest(value){
+            this.$parent.$emit('requestRemove' , this.item);
+          }
+        },
     }
 
 </script>

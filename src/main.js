@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import jsonFile from './assets/apment.json'
+
 
 Vue.config.productionTip = false
 

@@ -1,11 +1,15 @@
 <template>
 <div id="main-app">
-<appointment-list :appointments="theAppointment"></appointment-list>
+<appointment-list :appointments="theAppointment" @valueReseved='pushData' @requestRemove="removeFunction"></appointment-list>
+
+
 </div>
 </template>
 
 <script>
+
 import appointmentsList from './appointment.vue';
+import _ from 'lodash';
 export default {
   name: 'index',
   data () {
@@ -13,12 +17,22 @@ export default {
       theAppointment: '',
     }
   },created(){
-    $.getJSON('https://gist.githubusercontent.com/planetoftheweb/46426d47f21f2c9245bbe23f0fb834b5/raw/afae0adf97472893288ac5cde69e7bbb770793ed/appointments.json')
+    $.getJSON('./build/apment.json')
     .done(info=>{
       this.theAppointment = info;
+
     });
   } , components:{
     'appointment-list' : appointmentsList
+  }, methods:{
+      pushData: function(value){
+        console.log( value)
+        this.theAppointment.push(value);
+      },
+      removeFunction: function(apt){
+        this.theAppointment = _.without(this.theAppointment , apt);
+        console.log(this.theAppointment);
+      }
   }
 }
 </script>
